@@ -1,0 +1,37 @@
+
+package com.mr.hw.cluster.request;
+
+/**
+ * Enum that represents the type of operation request sent  
+ * @author kamlendrak
+ *
+ */
+public enum NettyRequestType {
+	
+	SLAVE_REGISTRATION,
+	REGISTRATION_ACK,
+	JOB_SUBMISSION,
+	START_MAP,
+	START_SORT,
+	MAP_FAILED,
+	PART_MAP_DONE,
+	MAP_DONE,
+	SORT_DONE,
+	PART_SORT_DONE,
+	START_REDUCE,
+	REDUCE_FAILED,
+	REDUCE_DONE,
+	PART_REDUCE_DONE,
+	JOB_DONE,
+	JOB_FAILED,
+	SEND_SORT_DONE,
+	PHASE1,
+	PIVOT_REQUEST,
+	PHASE2,
+	PHASE3,
+	PARTITION_REQUEST,
+	SORT_FAILED,
+	PIVOT_FAILED,
+	PART_SORT_FAILED,
+	PARTITION_REQUEST_FAILED,
+}

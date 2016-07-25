@@ -1,0 +1,25 @@
+---
+title: "ProjectReport"
+author: Kavyashree Nagendrakumar , Mayuri Keskar , Sri Annapurna Bhupatiraju , Kamlendra
+  Kumar
+date: "April 20, 2016"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+This report describes the implementation details of MapReduce Framework .
+
+## Overview
+
+The MapReduce framework consists of a single master node and one or many slave nodes. The master is responsible for scheduling the jobs' component tasks on the slaves, monitoring them and re-executing the failed tasks. The slaves execute the tasks as directed by the master.
+
+The client submits the job with information like Jar file , Mapper class, Reducer class ,Location of input files and output folder which are stored in the Job config and later used by master to run map and reduce tasks.
+
+Once the job is submitted , master will load the size and name of all the files from the input path and create input splits to achieve load balancing. This makes sure that all slave nodes recieve equal amount of data. The master calls map task on each slave node when it sends the input split , Maptask is responsible for reading each line of data from the input split and calling Mapper to map each line read as <key ,value> pair. The mapped key value pairs are written in temp folder with each <Key , Value> written in a text file which contains values of only that particular key . So if we have n keys in our input data , n text files will be created in temp folder , one for each key . After the Maptask is complete , each node sends out "Done" message to master . When master recieves "Done" message from all nodes , it sorts the text files in temp folder and divides it equally amongst the slave nodes and calls Reducetask . In Reduce phase each slave node reads the key files it recieves , converts it into <Key , Iterable<Values>> and calls reducer which does the desired operation on the data and writes the output in the output directory.
+
+In our implementation we are assuming that we have same number of Map and Reduce tasks as the slave nodes.
+
+## Implementation Details
